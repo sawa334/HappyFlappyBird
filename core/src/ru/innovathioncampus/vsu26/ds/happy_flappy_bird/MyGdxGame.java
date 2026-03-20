@@ -16,7 +16,6 @@ public class MyGdxGame extends ApplicationAdapter {
 	public void create () {
 		birdTexture = new Texture("bird0.png");
 		batch = new SpriteBatch();
-		birdTexture = new Texture("badlogic.jpg");
 	}
 
 	@Override
@@ -26,7 +25,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
 		ScreenUtils.clear(1, 0, 0, 1);
 		batch.begin();
-		batch.draw(birdTexture, 0, 0);
+		batch.draw(birdTexture, birdX, birdY);
 		batch.end();
 	}
 	
