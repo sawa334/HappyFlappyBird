@@ -1,37 +1,32 @@
 package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MyGdxGame extends ApplicationAdapter {
+public class MyGdxGame extends Game {
 	SpriteBatch batch;
-	int birdX = 0;
-	int birdY = 0;
-	int birdSpeed = 5;
-	Texture birdTexture;
+
+
+	public static final int SCR_WIDTH = 1280;
+	public static final int SCR_HEIGHT = 720;
+	public OrthographicCamera camera;
 	
 	@Override
 	public void create () {
-		birdTexture = new Texture("bird0.png");
+
 		batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
 	}
 
-	@Override
-	public void render () {
-		birdX += birdSpeed;
-		birdY += birdSpeed;
-
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(birdTexture, birdX, birdY);
-		batch.end();
-	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		birdTexture.dispose();
+
 	}
 }
