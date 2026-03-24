@@ -1,5 +1,6 @@
 package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -25,6 +26,10 @@ public class ScreenGame implements Screen {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.justTouched()) {
+            System.out.println("Just touched");
+        }
+
         birdX += birdSpeed;
         birdY += birdSpeed;
 
@@ -32,7 +37,9 @@ public class ScreenGame implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
+
         myGdxGame. batch.draw(birdTexture, birdX, birdY);
+
         myGdxGame.batch.end();
     }
 
@@ -60,4 +67,6 @@ public class ScreenGame implements Screen {
     public void dispose() {
         birdTexture.dispose();
     }
+
+
 }

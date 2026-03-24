@@ -14,6 +14,9 @@ public class MyGdxGame extends Game {
 	public static final int SCR_WIDTH = 1280;
 	public static final int SCR_HEIGHT = 720;
 	public OrthographicCamera camera;
+
+	public ScreenGame screenGame;
+
 	
 	@Override
 	public void create () {
@@ -21,6 +24,9 @@ public class MyGdxGame extends Game {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
+
+		screenGame = new ScreenGame(this);
+		setScreen(screenGame);
 	}
 
 	
