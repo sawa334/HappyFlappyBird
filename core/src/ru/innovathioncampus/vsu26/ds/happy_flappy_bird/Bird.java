@@ -10,6 +10,7 @@ public class Bird {
     int x,y;
     int speed  ;
     Texture texture;
+    int width, height;
 
     Texture[] framesArray = new Texture[]{
         new Texture("birdTiles/bird0.png"),
@@ -19,11 +20,12 @@ public class Bird {
     };
     int frameCounter;
 
-    public Bird(int x, int y, Texture texture, int speed){
+    public Bird(int x, int y, int speed, int width, int  height){
         this.x = x;
         this.y = y;
-        this.texture = texture;
         this.speed = speed;
+        this.width = width;
+        this.height = height;
     }
 
     public void fly() {
@@ -38,7 +40,8 @@ public class Bird {
         }
     }
     public  void draw (Batch batch) {
-        batch.draw(texture, x , y);
+        batch.draw(framesArray[frameCounter], x, y, width, height);
+        if (frameCounter++ == framesArray.length - 1) frameCounter = 0;
     }
     public void dispose() {
         texture.dispose();

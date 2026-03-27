@@ -7,17 +7,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class ScreenGame implements Screen {
 
-    int birdX = 0;
-    int birdY = 0;
-    int birdSpeed = 5;
-    Texture birdTexture;
+    Bird bird;
 
     MyGdxGame myGdxGame;
 
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        birdTexture = new Texture("bird0.png");
+        bird = new Bird(0, 0, 10, 250, 200);
     }
     @Override
     public void show() {
@@ -27,18 +24,17 @@ public class ScreenGame implements Screen {
     @Override
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
-            System.out.println("Just touched");
+            bird.onClick();
         }
 
-        birdX += birdSpeed;
-        birdY += birdSpeed;
+        bird.fly();
 
         ScreenUtils.clear(1, 0, 0, 1);
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
 
-        myGdxGame. batch.draw(birdTexture, birdX, birdY);
+        bird.draw(myGdxGame.batch);
 
         myGdxGame.batch.end();
     }
@@ -65,7 +61,7 @@ public class ScreenGame implements Screen {
 
     @Override
     public void dispose() {
-        birdTexture.dispose();
+        bird.dispose();
     }
 
 
