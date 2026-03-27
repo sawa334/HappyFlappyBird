@@ -8,14 +8,25 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class ScreenGame implements Screen {
 
     Bird bird;
-
+    int tubeCount = 5;
     MyGdxGame myGdxGame;
+
+    Tube[] tubes;
 
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         bird = new Bird(0, 0, 10, 250, 200);
+        initTubes();
     }
+    public void initTubes(){
+        tubes = new Tube[tubeCount];
+        for (int i = 0; i < tubeCount; i++) {
+            tubes[i] = new Tube(tubeCount, i);
+        }
+    }
+
+
     @Override
     public void show() {
 
@@ -33,10 +44,11 @@ public class ScreenGame implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
-
         bird.draw(myGdxGame.batch);
-
+        for (Tube tube : tubes) tube.move();
+        for (Tube tube : tubes) tube.draw(myGdxGame.batch);
         myGdxGame.batch.end();
+
     }
 
     @Override
