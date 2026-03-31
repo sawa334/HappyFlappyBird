@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class ScreenGame implements Screen {
 
     Bird bird;
-    int tubeCount = 5;
+    int tubeCount = 3;
     MyGdxGame myGdxGame;
 
     Tube[] tubes;
@@ -29,23 +29,35 @@ public class ScreenGame implements Screen {
 
     @Override
     public void show() {
-
+        isGameOver = false;
     }
+
+    boolean isGameOver;
 
     @Override
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
             bird.onClick();
-        }
 
+        }
         bird.fly();
+        if (!bird.isInField()) {
+            System.out.println("not in field");
+            isGameOver = true;
+        }
 
         ScreenUtils.clear(1, 0, 0, 1);
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
         bird.draw(myGdxGame.batch);
-        for (Tube tube : tubes) tube.move();
+        for (Tube tube : tubes) {
+            tube.move();
+            if (tube.isHit(bird)) {
+                System.out.println("hit");
+                isGameOver = true;
+            }
+        }
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
         myGdxGame.batch.end();
 

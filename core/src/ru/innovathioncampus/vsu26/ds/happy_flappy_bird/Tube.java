@@ -58,4 +58,12 @@ public class Tube {
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
     }
+    public boolean isHit(Bird bird) {
+        if (bird.y <= gapY - gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
+            return true;
+        if (bird.y + bird.height >= gapY + gapHeight / 2 && bird.x + bird.width >= x && bird.x <= x)
+            return true;
+        return false;
+
+    }
 }
