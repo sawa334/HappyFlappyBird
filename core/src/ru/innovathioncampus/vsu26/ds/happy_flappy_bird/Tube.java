@@ -24,6 +24,7 @@ public class Tube {
 
     int x;
     int distanceBetweenTubes;
+    boolean isPointReceived;
 
     int speed = 5;
 
@@ -54,6 +55,7 @@ public class Tube {
     void move() {
         x -= speed;
         if (x < -width) {
+            isPointReceived = false;
             x = SCR_WIDTH + distanceBetweenTubes;
             gapY = gapHeight / 2 + padding + random.nextInt(SCR_HEIGHT - 2 * (padding + gapHeight / 2));
         }
@@ -65,5 +67,12 @@ public class Tube {
             return true;
         return false;
 
+    }
+    public boolean needAddPoint(Bird bird) {
+
+        return bird.x > x + width && !isPointReceived;
+    }
+    public  void setPointReceived() {
+        isPointReceived = true;
     }
 }

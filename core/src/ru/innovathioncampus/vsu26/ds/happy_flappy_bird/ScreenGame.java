@@ -1,5 +1,8 @@
 package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
 
+import static ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
+import static ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame.SCR_WIDTH;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,10 +16,20 @@ public class ScreenGame implements Screen {
 
     Tube[] tubes;
 
+    int gamePoints;
+
+    PointCounter pointCounter;
+
+    final  int pointCounterMarginTop = 60;
+    final int pointCounterMarginRight = 400;
+
+
+
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        bird = new Bird(0, 0, 10, 250, 200);
+        bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
+        pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
         initTubes();
     }
     public void initTubes(){
@@ -29,6 +42,7 @@ public class ScreenGame implements Screen {
 
     @Override
     public void show() {
+        gamePoints = 0;
         isGameOver = false;
     }
 
@@ -38,6 +52,7 @@ public class ScreenGame implements Screen {
     public void render(float delta) {
         if (Gdx.input.justTouched()) {
             bird.onClick();
+
 
         }
         bird.fly();
@@ -50,12 +65,17 @@ public class ScreenGame implements Screen {
         myGdxGame.camera.update();
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
+        pointCounter.draw(myGdxGame.batch, gamePoints);
         bird.draw(myGdxGame.batch);
         for (Tube tube : tubes) {
             tube.move();
             if (tube.isHit(bird)) {
                 System.out.println("hit");
                 isGameOver = true;
+            } else if (tube.needAddPoint((bird))) {
+                gamePoints += 1;
+                tube.setPointReceived();
+                System.out.println(gamePoints);
             }
         }
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
