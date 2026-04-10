@@ -8,6 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+
 public class ScreenGame implements Screen {
 
     Bird bird;
@@ -19,6 +20,7 @@ public class ScreenGame implements Screen {
     int gamePoints;
 
     PointCounter pointCounter;
+     MovingBackground background;
 
     final  int pointCounterMarginTop = 60;
     final int pointCounterMarginRight = 400;
@@ -28,9 +30,10 @@ public class ScreenGame implements Screen {
 
     ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
-        bird = new Bird(20, SCR_HEIGHT / 2, 10, 250, 200);
+        bird = new Bird(20, SCR_HEIGHT / 2, 10, 200, 150);
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
         initTubes();
+        background = new MovingBackground();
     }
     public void initTubes(){
         tubes = new Tube[tubeCount];
@@ -55,6 +58,7 @@ public class ScreenGame implements Screen {
 
 
         }
+        background.move();
         bird.fly();
         if (!bird.isInField()) {
             System.out.println("not in field");
@@ -66,7 +70,6 @@ public class ScreenGame implements Screen {
         myGdxGame.batch.setProjectionMatrix(myGdxGame.camera.combined);
         myGdxGame.batch.begin();
         pointCounter.draw(myGdxGame.batch, gamePoints);
-        bird.draw(myGdxGame.batch);
         for (Tube tube : tubes) {
             tube.move();
             if (tube.isHit(bird)) {
@@ -78,7 +81,11 @@ public class ScreenGame implements Screen {
                 System.out.println(gamePoints);
             }
         }
+        background.draw(myGdxGame.batch);
+        bird.draw(myGdxGame.batch);
         for (Tube tube : tubes) tube.draw(myGdxGame.batch);
+        pointCounter.draw(myGdxGame.batch, gamePoints);
+
         myGdxGame.batch.end();
 
     }
@@ -106,6 +113,11 @@ public class ScreenGame implements Screen {
     @Override
     public void dispose() {
         bird.dispose();
+        background.dispose();
+        for (Tube tube : tubes){
+            tube.dispose();
+        }
+
     }
 
 

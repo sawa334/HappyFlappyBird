@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Bird {
     int jumpHeight;
-    final int maxHeightOfJump = 130;
+    final int maxHeightOfJump = 100;
     boolean jump;
     int x,y;
     int speed  ;
