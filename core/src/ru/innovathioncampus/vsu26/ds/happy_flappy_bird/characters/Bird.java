@@ -1,4 +1,4 @@
-package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
+package ru.innovathioncampus.vsu26.ds.happy_flappy_bird.characters;
 
 import static ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
 
@@ -48,7 +48,7 @@ public class Bird {
     public void dispose() {
         texture.dispose();
     }
-    void onClick() {
+   public void onClick() {
         jump = true;
         jumpHeight = maxHeightOfJump + y;
     }

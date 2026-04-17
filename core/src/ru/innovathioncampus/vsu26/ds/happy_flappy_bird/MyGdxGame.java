@@ -1,14 +1,14 @@
 package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.screens.ScreenGame;
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.screens.ScreenRestart;
 
 public class MyGdxGame extends Game {
-	SpriteBatch batch;
+	public SpriteBatch batch;
 
 
 	public static final int SCR_WIDTH = 1280;
@@ -16,6 +16,7 @@ public class MyGdxGame extends Game {
 	public OrthographicCamera camera;
 
 	public ScreenGame screenGame;
+	public ScreenRestart screenRestart;
 
 	
 	@Override
@@ -27,6 +28,8 @@ public class MyGdxGame extends Game {
 
 		screenGame = new ScreenGame(this);
 		setScreen(screenGame);
+
+		screenRestart = new ScreenRestart(this);
 	}
 
 	

@@ -1,12 +1,17 @@
-package ru.innovathioncampus.vsu26.ds.happy_flappy_bird;
+package ru.innovathioncampus.vsu26.ds.happy_flappy_bird.screens;
 
 import static ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame.SCR_HEIGHT;
 import static ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame.SCR_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.characters.Bird;
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.components.MovingBackground;
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.MyGdxGame;
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.components.PointCounter;
+import ru.innovathioncampus.vsu26.ds.happy_flappy_bird.characters.Tube;
 
 
 public class ScreenGame implements Screen {
@@ -28,12 +33,12 @@ public class ScreenGame implements Screen {
 
 
 
-    ScreenGame(MyGdxGame myGdxGame) {
+     public ScreenGame(MyGdxGame myGdxGame) {
         this.myGdxGame = myGdxGame;
         bird = new Bird(20, SCR_HEIGHT / 2, 10, 200, 150);
         pointCounter = new PointCounter(SCR_WIDTH - pointCounterMarginRight, SCR_HEIGHT - pointCounterMarginTop);
         initTubes();
-        background = new MovingBackground();
+        background = new MovingBackground("background/game_bg.png");
     }
     public void initTubes(){
         tubes = new Tube[tubeCount];
@@ -88,6 +93,10 @@ public class ScreenGame implements Screen {
 
         myGdxGame.batch.end();
 
+        if (isGameOver) {
+            myGdxGame.setScreen(myGdxGame.screenRestart);
+        }
+
     }
 
     @Override
@@ -117,7 +126,7 @@ public class ScreenGame implements Screen {
         for (Tube tube : tubes){
             tube.dispose();
         }
-
+        pointCounter.dispose();
     }
 
 
