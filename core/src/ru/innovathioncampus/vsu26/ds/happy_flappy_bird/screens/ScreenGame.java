@@ -23,8 +23,8 @@ public class ScreenGame implements Screen {
     Tube[] tubes;
 
     int gamePoints;
-
     PointCounter pointCounter;
+
      MovingBackground background;
 
     final  int pointCounterMarginTop = 60;
@@ -52,6 +52,8 @@ public class ScreenGame implements Screen {
     public void show() {
         gamePoints = 0;
         isGameOver = false;
+        bird.setY(SCR_HEIGHT / 2);
+        initTubes();
     }
 
     boolean isGameOver;
@@ -94,6 +96,7 @@ public class ScreenGame implements Screen {
         myGdxGame.batch.end();
 
         if (isGameOver) {
+            myGdxGame.screenRestart.gamePoints = gamePoints;
             myGdxGame.setScreen(myGdxGame.screenRestart);
         }
 

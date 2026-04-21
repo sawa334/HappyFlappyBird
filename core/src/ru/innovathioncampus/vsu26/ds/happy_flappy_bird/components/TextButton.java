@@ -45,4 +45,7 @@ public class TextButton {
         texture.dispose();
         font.dispose();
     }
+    public boolean isHit(int tx, int ty) {
+        return tx >= x && tx <= x + buttonWidth && ty >= y && ty <= y + buttonHeight;
+    }
 }
