@@ -42,8 +42,9 @@ public class Bird {
         }
     }
     public  void draw (Batch batch) {
-        batch.draw(framesArray[frameCounter], x, y, width, height);
-        if (frameCounter++ == framesArray.length - 1) frameCounter = 0;
+        int frameMultiplier = 15;
+        batch.draw(framesArray[frameCounter / frameMultiplier], x, y, width, height);
+        if (frameCounter++ == framesArray.length * frameMultiplier - 1) frameCounter = 0;
     }
     public void dispose() {
         texture.dispose();
